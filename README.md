@@ -21,6 +21,7 @@ Blush is a privacy-themed social media prototype I made for my web development m
 - Profile page and log out
 - Privacy controls: delete your own posts or your whole account from the profile page
 - Responsive design for phone, tablet, and desktop
+- Edit profile: change your display name, bio, profile color, and upload a profile photo
 
 ## Built with
 
@@ -71,3 +72,4 @@ I used AI (Claude and ChatGPT) as a guide while building this project. It helped
 - Everything is saved in the browser's localStorage, so nothing is shared between devices or browsers.
 - The demo login only stores a salted SHA-256 hash of the password. A real app needs a backend with proper password hashing, so please don't use a real password.
 - The posts from other users in the feed are fake demo posts.
+- Profile photos are resized and saved inside the browser's localStorage, so they only show up on the device you uploaded them from.
