@@ -54,4 +54,14 @@ webdev-midterm
 
 ## Important note
 
-Blush is a **frontend-only school project**. Accounts and posts are stored in the browser's localStorage, which is not secure, and nothing is sent to a server. Please don't use a real password or personal information.
+Blush is a **frontend-only school project**. Accounts and posts are stored in the browser's localStorage, which is not secure, and nothing is sent to a server. Please don't use a real password or personal information. 
+
+## Notes on AI use
+
+I used AI (Claude and ChatGPT) as a guide while building this project. It helped me with the page layouts, the CSS, and the JavaScript for posting, likes, and the demo login. I pasted, tested, and fixed the code myself, including a wrong file path that was breaking my JavaScript. I still want to understand how everything works properly in our next lessons.
+
+## Limitations
+
+- Everything is saved in the browser's localStorage, so nothing is sent to a server and nothing is shared between devices.
+- The demo login only stores a salted SHA-256 hash of the password. A real app needs a backend with proper password hashing, so please don't use a real password.
+- The posts from other users in the feed are fake demo posts.
