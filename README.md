@@ -20,6 +20,7 @@ Blush is a privacy-themed social media website I made for my web development mid
 - Password check using a salted SHA-256 hash (the real password is never saved)
 - Profile page and log out
 - Responsive design for phone, tablet, and desktop
+- Privacy controls: delete your own posts or your whole account from the profile page
 
 ## Built with
 
