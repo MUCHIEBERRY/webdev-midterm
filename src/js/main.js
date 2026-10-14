@@ -6,6 +6,7 @@
 const ACCOUNTS_KEY = "blushDemoAccounts";
 const SESSION_KEY = "blushCurrentUser";
 const POSTS_KEY = "blushPosts";
+const DEFAULT_COLOR = "#f7a8c4";
 
 function getAccounts() {
     try {
@@ -23,9 +24,73 @@ function getCurrentUser() {
     }
 }
 
+function findAccount(email) {
+    return getAccounts().find(function (account) {
+        return account.email === email;
+    }) || null;
+}
+
 function showMessage(element, text, type) {
     element.textContent = text;
     element.className = "form-message show " + type;
+}
+
+function clearMessage(element) {
+    element.textContent = "";
+    element.className = "form-message";
+}
+
+function isValidColor(color) {
+    return typeof color === "string" && /^#[0-9a-f]{6}$/i.test(color);
+}
+
+function makeHandle(name) {
+    const clean = name.toLowerCase().replace(/[^a-z0-9]/g, "");
+    return "@" + (clean || "yourspace");
+}
+
+// Shows a photo if there is one, otherwise the first letter of the name.
+function setAvatar(element, name, src) {
+    element.textContent = "";
+
+    if (typeof src === "string" && src.startsWith("data:image/")) {
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = name + "'s profile picture";
+        element.append(img);
+    } else {
+        element.textContent = name.charAt(0);
+    }
+}
+
+// Crops the image to a square and shrinks it so it's small enough to save.
+function resizeImage(file, size) {
+    return new Promise(function (resolve, reject) {
+        const reader = new FileReader();
+
+        reader.onerror = reject;
+        reader.onload = function () {
+            const img = new Image();
+
+            img.onerror = reject;
+            img.onload = function () {
+                const canvas = document.createElement("canvas");
+                canvas.width = size;
+                canvas.height = size;
+
+                const side = Math.min(img.width, img.height);
+                const sx = (img.width - side) / 2;
+                const sy = (img.height - side) / 2;
+
+                canvas.getContext("2d").drawImage(img, sx, sy, side, side, 0, 0, size, size);
+                resolve(canvas.toDataURL("image/jpeg", 0.85));
+            };
+
+            img.src = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+    });
 }
 
 function getSavedPosts() {
@@ -66,6 +131,11 @@ function timeAgo(timestamp) {
 }
 
 function buildPostElement(post) {
+    // Use the author's latest profile (name, photo, color) if they still have an account.
+    const author = post.email ? findAccount(post.email) : null;
+    const name = author ? author.name : post.name;
+    const handle = author ? makeHandle(author.name) : post.handle;
+
     const article = document.createElement("article");
     article.className = "post-card";
     article.dataset.id = post.id;
@@ -75,15 +145,19 @@ function buildPostElement(post) {
 
     const avatar = document.createElement("div");
     avatar.className = "avatar avatar-pink";
-    avatar.textContent = post.name.charAt(0);
+    setAvatar(avatar, name, author ? author.avatar : null);
+
+    if (author && isValidColor(author.color)) {
+        avatar.style.boxShadow = "0 0 0 3px " + author.color;
+    }
 
     const userInfo = document.createElement("div");
 
     const username = document.createElement("strong");
-    username.textContent = post.name + " ♡";
+    username.textContent = name + " ♡";
 
     const timestamp = document.createElement("p");
-    timestamp.textContent = post.handle + " · " + timeAgo(post.time);
+    timestamp.textContent = handle + " · " + timeAgo(post.time);
 
     userInfo.append(username, timestamp);
     user.append(avatar, userInfo);
@@ -140,13 +214,12 @@ if (postForm && postContent && postList) {
 
         const user = getCurrentUser();
         const name = user ? user.name : "you";
-        const handleName = name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
         const post = {
             id: Date.now(),
             name: name,
             email: user ? user.email : null,
-            handle: "@" + (handleName || "yourspace"),
+            handle: makeHandle(name),
             text: content,
             time: Date.now(),
             likes: 0,
@@ -299,9 +372,7 @@ if (loginForm) {
         const password = document.querySelector("#login-password").value;
         const message = document.querySelector("#login-message");
 
-        const account = getAccounts().find(function (item) {
-            return item.email === email;
-        });
+        const account = findAccount(email);
 
         // Same message for both cases, so it doesn't reveal which emails exist.
         const failText = "wrong email or password. try again?";
@@ -344,23 +415,178 @@ if (loginLink && currentUser) {
 
 
 // =====================================
-// BLUSH — PROFILE PAGE + PRIVACY CONTROLS
+// BLUSH — PROFILE PAGE
 // =====================================
 
 const profileCard = document.querySelector("#profile-card");
 const profileGuest = document.querySelector("#profile-guest");
 
 if (profileCard && profileGuest) {
-    const profileUser = getCurrentUser();
+    const avatarEl = document.querySelector("#profile-avatar");
+    const nameEl = document.querySelector("#profile-name");
+    const bioEl = document.querySelector("#profile-bio");
+    const emailEl = document.querySelector("#profile-email");
+    const profileMessage = document.querySelector("#profile-message");
 
-    if (profileUser) {
-        document.querySelector("#profile-avatar").textContent = profileUser.name.charAt(0);
-        document.querySelector("#profile-name").textContent = profileUser.name;
-        document.querySelector("#profile-email").textContent = profileUser.email;
+    const editButton = document.querySelector("#edit-profile-button");
+    const editForm = document.querySelector("#edit-profile-form");
+    const nameInput = document.querySelector("#edit-name");
+    const bioInput = document.querySelector("#edit-bio");
+    const photoInput = document.querySelector("#edit-photo");
+    const removePhotoButton = document.querySelector("#remove-photo-button");
+    const avatarPreview = document.querySelector("#avatar-preview");
+    const editMessage = document.querySelector("#edit-message");
+    const cancelEditButton = document.querySelector("#cancel-edit-button");
+
+    // null = photo unchanged, "" = photo removed, text = new photo
+    let pendingAvatar = null;
+
+    const renderProfile = function () {
+        const user = getCurrentUser();
+        if (!user) return;
+
+        const account = findAccount(user.email) || user;
+        const color = isValidColor(account.color) ? account.color : DEFAULT_COLOR;
+
+        profileCard.style.setProperty("--profile-color", color);
+        setAvatar(avatarEl, account.name, account.avatar);
+        nameEl.textContent = account.name;
+        emailEl.textContent = account.email;
+
+        bioEl.textContent = account.bio || "";
+        bioEl.hidden = !account.bio;
+    };
+
+    const selectColor = function (color) {
+        const radios = editForm.querySelectorAll('input[name="profile-color"]');
+        let matched = false;
+
+        radios.forEach(function (radio) {
+            const hit = radio.value.toLowerCase() === color.toLowerCase();
+            radio.checked = hit;
+            if (hit) matched = true;
+        });
+
+        if (!matched && radios[0]) radios[0].checked = true;
+    };
+
+    const openEditor = function () {
+        const user = getCurrentUser();
+        if (!user) return;
+
+        const account = findAccount(user.email) || user;
+
+        nameInput.value = account.name;
+        bioInput.value = account.bio || "";
+        photoInput.value = "";
+        pendingAvatar = null;
+
+        setAvatar(avatarPreview, account.name, account.avatar);
+        selectColor(isValidColor(account.color) ? account.color : DEFAULT_COLOR);
+        clearMessage(editMessage);
+        clearMessage(profileMessage);
+
+        editForm.hidden = false;
+        editButton.hidden = true;
+        nameInput.focus();
+    };
+
+    const closeEditor = function () {
+        editForm.hidden = true;
+        editButton.hidden = false;
+    };
+
+    if (getCurrentUser()) {
+        renderProfile();
         profileCard.hidden = false;
     } else {
         profileGuest.hidden = false;
     }
+
+    editButton.addEventListener("click", openEditor);
+    cancelEditButton.addEventListener("click", closeEditor);
+
+    // ---------- CHOOSE A PHOTO ----------
+    photoInput.addEventListener("change", async function () {
+        const file = photoInput.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            showMessage(editMessage, "please pick an image file.", "error");
+            photoInput.value = "";
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            showMessage(editMessage, "that photo is too big. pick one under 5 MB.", "error");
+            photoInput.value = "";
+            return;
+        }
+
+        try {
+            pendingAvatar = await resizeImage(file, 240);
+            setAvatar(avatarPreview, nameInput.value.trim() || "?", pendingAvatar);
+            clearMessage(editMessage);
+        } catch {
+            showMessage(editMessage, "couldn't read that photo. try another one?", "error");
+            photoInput.value = "";
+        }
+    });
+
+    removePhotoButton.addEventListener("click", function () {
+        pendingAvatar = "";
+        photoInput.value = "";
+        setAvatar(avatarPreview, nameInput.value.trim() || "?", "");
+    });
+
+    // ---------- SAVE PROFILE ----------
+    editForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const user = getCurrentUser();
+        if (!user) return;
+
+        const newName = nameInput.value.trim();
+
+        if (!newName) {
+            showMessage(editMessage, "your display name can't be empty.", "error");
+            return;
+        }
+
+        const accounts = getAccounts();
+        const account = accounts.find(function (item) {
+            return item.email === user.email;
+        });
+
+        if (!account) {
+            showMessage(editMessage, "couldn't find your account. try logging in again.", "error");
+            return;
+        }
+
+        const chosen = editForm.querySelector('input[name="profile-color"]:checked');
+
+        account.name = newName;
+        account.bio = bioInput.value.trim();
+        account.color = chosen ? chosen.value : DEFAULT_COLOR;
+
+        if (pendingAvatar === "") {
+            delete account.avatar;
+        } else if (pendingAvatar) {
+            account.avatar = pendingAvatar;
+        }
+
+        try {
+            localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts));
+            localStorage.setItem(SESSION_KEY, JSON.stringify({ name: account.name, email: account.email }));
+        } catch {
+            showMessage(editMessage, "couldn't save. the browser storage might be full.", "error");
+            return;
+        }
+
+        renderProfile();
+        closeEditor();
+        showMessage(profileMessage, "profile updated ♡", "success");
+    });
 
     // ---------- LOG OUT ----------
     const logoutButton = document.querySelector("#logout-button");
@@ -372,7 +598,7 @@ if (profileCard && profileGuest) {
         });
     }
 
-    // ---------- DELETE MY POSTS ----------
+    // ---------- PRIVACY CONTROLS ----------
     const deletePostsButton = document.querySelector("#delete-posts-button");
     const deleteAccountButton = document.querySelector("#delete-account-button");
     const privacyMessage = document.querySelector("#privacy-message");
@@ -396,7 +622,6 @@ if (profileCard && profileGuest) {
         });
     }
 
-    // ---------- DELETE MY ACCOUNT ----------
     if (deleteAccountButton) {
         deleteAccountButton.addEventListener("click", function () {
             const user = getCurrentUser();

@@ -29,11 +29,60 @@
         <div class="profile-avatar" id="profile-avatar">b</div>
         <p class="eyebrow">your little corner</p>
         <h1 id="profile-name">lovely</h1>
+        <p class="profile-bio" id="profile-bio" hidden></p>
+
+        <p id="profile-message" class="form-message" role="status"></p>
 
         <div class="profile-details">
             <p><strong>email</strong></p>
             <p id="profile-email">you@example.com</p>
         </div>
+
+        <button type="button" id="edit-profile-button" class="secondary-button">edit profile ✎</button>
+
+        <form id="edit-profile-form" class="edit-form" hidden>
+            <div class="form-field">
+                <label for="edit-name">display name</label>
+                <input type="text" id="edit-name" maxlength="40" required>
+            </div>
+
+            <div class="form-field">
+                <label for="edit-bio">bio</label>
+                <textarea id="edit-bio" maxlength="160" rows="3" placeholder="say something about yourself (max 160 characters)"></textarea>
+            </div>
+
+            <div class="form-field">
+                <label for="edit-photo">profile photo</label>
+                <div class="photo-row">
+                    <div class="avatar-preview" id="avatar-preview">b</div>
+                    <div class="photo-actions">
+                        <input type="file" id="edit-photo" accept="image/*">
+                        <button type="button" id="remove-photo-button" class="secondary-button">remove photo</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-field">
+                <fieldset class="color-field">
+                    <legend>profile color</legend>
+                    <div class="color-options">
+                        <label class="color-option"><input type="radio" name="profile-color" value="#f7a8c4" aria-label="blush pink" checked><span style="background:#f7a8c4"></span></label>
+                        <label class="color-option"><input type="radio" name="profile-color" value="#c73562" aria-label="cherry"><span style="background:#c73562"></span></label>
+                        <label class="color-option"><input type="radio" name="profile-color" value="#b9a2f0" aria-label="lavender"><span style="background:#b9a2f0"></span></label>
+                        <label class="color-option"><input type="radio" name="profile-color" value="#f6c6a0" aria-label="peach"><span style="background:#f6c6a0"></span></label>
+                        <label class="color-option"><input type="radio" name="profile-color" value="#a8d8c0" aria-label="mint"><span style="background:#a8d8c0"></span></label>
+                        <label class="color-option"><input type="radio" name="profile-color" value="#a9cdf0" aria-label="sky blue"><span style="background:#a9cdf0"></span></label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <p id="edit-message" class="form-message" role="status"></p>
+
+            <div class="edit-actions">
+                <button type="submit">save ♡</button>
+                <button type="button" id="cancel-edit-button" class="secondary-button">cancel</button>
+            </div>
+        </form>
 
         <a href="../index.html" class="button">back to the feed ♡</a>
         <button type="button" id="logout-button" class="logout-button">log out</button>
