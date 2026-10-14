@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Log in to Blush, your space for expression and privacy.">
+    <title>Log In — Blush</title>
+    <link rel="icon" type="image/jpeg" href="../assets/img/logo.jpg">
+    <link rel="stylesheet" href="../src/css/style.css">
+</head>
+<body class="auth-page">
+
+    <header class="topbar">
+        <a href="../index.html" class="brand">blush<span>♡</span></a>
+        <a href="../index.html" class="login-link">← back to home</a>
+    </header>
+
+    <main class="auth-layout">
+
+        <section class="auth-intro">
+            <p class="eyebrow">your space is waiting</p>
+            <h1>well, hello<br>again, <span>lovely.</span></h1>
+            <p>Come back to your little corner of the internet. Your thoughts, your people, your space.</p>
+
+            <div class="auth-decoration">
+                <span>♡</span>
+                <p>less noise. more you.</p>
+            </div>
+        </section>
+
+        <section class="auth-card card">
+            <p class="eyebrow">welcome back</p>
+            <h2>let's get you in.</h2>
+            <p class="auth-description">Pick up right where you left off.</p>
+
+            <form id="login-form">
+                <div class="form-field">
+                    <label for="login-email">email address</label>
+                    <input
+                        type="email"
+                        id="login-email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="form-field">
+                    <label for="login-password">password</label>
+                    <input
+                        type="password"
+                        id="login-password"
+                        placeholder="enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <p id="login-message" class="form-message" role="status"></p>
+
+                <button type="submit" class="auth-submit">log in ♡</button>
+            </form>
+
+            <p class="auth-switch">
+                new around here?
+                <a href="signup.html">create an account</a>
+            </p>
+
+            <p class="auth-footnote">your space. your voice. your choice.</p>
+        </section>
+
+    </main>
+
+    <script src="../src/js/main.js"></script>
+</body>
+</html>

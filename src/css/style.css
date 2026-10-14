@@ -1,0 +1,926 @@
+/* =====================================
+   AIRA'S PRIVACY SOCIAL — DESIGN SYSTEM
+   Theme: Blush Pink / Cherry / Soft Luxe
+===================================== */
+
+:root {
+    --pink: #f7a8c4;
+    --pink-light: #fff0f5;
+    --pink-soft: #ffe0eb;
+    --cherry: #c73562;
+    --berry: #8f2449;
+    --lavender: #eee5ff;
+    --cream: #fffaf7;
+    --white: #ffffff;
+    --text: #3d2631;
+    --text-soft: #896b78;
+    --border: #f2d6e0;
+
+    --radius: 18px;
+    --shadow: 0 8px 24px rgba(143, 36, 73, 0.08);
+}
+
+/* Reset */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* Headings */
+
+h1,
+h2,
+h3 {
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+}
+
+h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+h2 {
+    font-size: 1.7rem;
+}
+
+p {
+    color: var(--text-soft);
+}
+
+/* Links */
+
+a {
+    color: var(--cherry);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--berry);
+}
+
+/* Buttons */
+
+button,
+.button {
+    display: inline-block;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 22px;
+    background: var(--cherry);
+    color: var(--white);
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+button:hover,
+.button:hover {
+    background: var(--berry);
+    transform: translateY(-2px);
+}
+
+/* Inputs */
+
+input,
+textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--white);
+    color: var(--text);
+    font: inherit;
+    outline: none;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--pink);
+    box-shadow: 0 0 0 3px var(--pink-soft);
+}
+
+/* Cards */
+
+.card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+}
+
+/* Small labels */
+
+.eyebrow {
+    color: var(--cherry);
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Layout helpers */
+
+.container {
+    width: min(1100px, 92%);
+    margin-inline: auto;
+}
+
+.section {
+    padding: 48px 0;
+}
+
+/* Selection color */
+
+::selection {
+    background: var(--pink);
+    color: var(--berry);
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+    .card {
+        padding: 18px;
+    }
+
+    .section {
+        padding: 32px 0;
+    }
+}
+/* =====================================
+   BLUSH — SOCIAL FEED
+===================================== */
+
+.topbar {
+    min-height: 76px;
+    padding: 16px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    color: var(--berry);
+    font-family: Georgia, serif;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: -1px;
+}
+
+.brand span {
+    color: var(--cherry);
+}
+
+.main-nav {
+    display: flex;
+    gap: 28px;
+}
+
+.main-nav a,
+.login-link {
+    color: var(--text-soft);
+    font-size: 0.92rem;
+    font-weight: bold;
+}
+
+.main-nav a.active,
+.main-nav a:hover,
+.login-link:hover {
+    color: var(--cherry);
+}
+
+.feed-layout {
+    width: min(1440px, 94%);
+    margin: 42px auto;
+    display: grid;
+    grid-template-columns: 0.85fr 1.6fr 0.9fr;
+    align-items: start;
+    gap: 28px;
+}
+
+.sidebar,
+.right-sidebar {
+    position: sticky;
+    top: 24px;
+}
+
+.sidebar h2,
+.welcome-card h2 {
+    margin: 14px 0;
+    font-family: Georgia, serif;
+    font-weight: normal;
+}
+
+.sidebar > p:not(.eyebrow) {
+    font-size: 0.95rem;
+}
+
+.privacy-note {
+    display: flex;
+    gap: 12px;
+    margin: 28px 0;
+    padding: 16px;
+    background: var(--pink-light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.privacy-note > span {
+    color: var(--cherry);
+    font-size: 1.5rem;
+}
+
+.privacy-note strong {
+    font-size: 0.9rem;
+}
+
+.privacy-note p {
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.text-link {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.feed-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.feed-heading h1 {
+    margin-top: 8px;
+    font-family: Georgia, serif;
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+    font-weight: normal;
+}
+
+.online-label {
+    color: var(--cherry);
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.composer,
+.post-card,
+.welcome-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: var(--shadow);
+}
+
+.composer {
+    margin-bottom: 24px;
+}
+
+.composer label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.composer textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.composer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.composer-bottom span {
+    color: var(--text-soft);
+    font-size: 0.78rem;
+}
+
+.post-list {
+    display: grid;
+    gap: 18px;
+}
+
+.post-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    font-family: Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.avatar-pink {
+    background: var(--pink-soft);
+    color: var(--cherry);
+}
+
+.avatar-lavender {
+    background: var(--lavender);
+    color: #72539d;
+}
+
+.avatar-cream {
+    background: #f8eadc;
+    color: #8d6248;
+}
+
+.post-user strong {
+    font-size: 0.95rem;
+}
+
+.post-user p {
+    font-size: 0.78rem;
+}
+
+.post-text {
+    margin: 20px 0;
+    color: var(--text);
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.post-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+}
+
+.post-actions button {
+    padding: 8px 14px;
+    background: var(--pink-light);
+    color: var(--cherry);
+    font-size: 0.83rem;
+}
+
+.post-actions button:hover,
+.post-actions button.liked {
+    background: var(--pink-soft);
+}
+
+.welcome-card {
+    text-align: center;
+    background: linear-gradient(160deg, #fff 25%, var(--pink-light));
+}
+
+.welcome-heart {
+    display: block;
+    color: var(--cherry);
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+}
+
+.welcome-card > p:not(.eyebrow) {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.welcome-card .button {
+    display: block;
+    padding: 12px;
+    font-size: 0.85rem;
+}
+
+.welcome-card .small-note {
+    margin: 18px 0 0 !important;
+    font-size: 0.78rem !important;
+}
+
+.manifesto {
+    margin-top: 24px;
+    padding: 18px;
+    background: var(--lavender);
+    border-radius: var(--radius);
+}
+
+.manifesto .eyebrow {
+    margin-bottom: 12px;
+}
+
+.manifesto p:not(.eyebrow) {
+    color: #624a82;
+    font-family: Georgia, serif;
+    font-size: 1.05rem;
+}
+
+.site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 24px 5%;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+}
+
+.site-footer a {
+    font-weight: bold;
+}
+
+@media (max-width: 1050px) {
+    .feed-layout {
+        grid-template-columns: 0.8fr 1.6fr;
+    }
+
+    .right-sidebar {
+        position: static;
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+
+    .manifesto {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 680px) {
+    .topbar {
+        flex-wrap: wrap;
+        padding: 14px 5%;
+    }
+
+    .brand {
+        font-size: 1.7rem;
+    }
+
+    .main-nav {
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
+        gap: 12px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+    }
+
+    .feed-layout {
+        grid-template-columns: 1fr;
+        margin: 24px auto;
+        gap: 24px;
+    }
+
+    .sidebar {
+        position: static;
+    }
+
+    .sidebar h2 br {
+        display: none;
+    }
+
+    .feed-heading {
+        align-items: start;
+        flex-direction: column;
+    }
+
+    .right-sidebar {
+        grid-column: auto;
+        grid-template-columns: 1fr;
+    }
+
+    .site-footer {
+        flex-direction: column;
+    }
+}
+/* =====================================
+   BLUSH — LOGIN AND SIGNUP PAGES
+===================================== */
+
+.auth-page {
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at 12% 15%, #ffe0eb 0, transparent 36%),
+        radial-gradient(ellipse at 90% 85%, #eee5ff 0, transparent 34%),
+        var(--cream);
+}
+
+.auth-layout {
+    width: min(1050px, 90%);
+    min-height: calc(100vh - 76px);
+    margin: auto;
+    padding: 60px 0;
+    display: grid;
+    grid-template-columns: 1fr 0.9fr;
+    align-items: center;
+    gap: 70px;
+}
+
+.auth-intro h1 {
+    margin: 18px 0;
+    font-family: Georgia, serif;
+    font-weight: normal;
+    font-size: clamp(2.8rem, 5vw, 4.7rem);
+    line-height: 1.1;
+}
+
+.auth-intro h1 span {
+    color: var(--cherry);
+    font-style: italic;
+}
+
+.auth-intro > p:not(.eyebrow) {
+    max-width: 420px;
+    font-size: 1.05rem;
+}
+
+.auth-decoration {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 42px;
+    color: var(--cherry);
+}
+
+.auth-decoration span {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--pink-soft);
+    font-size: 2rem;
+}
+
+.auth-decoration p {
+    color: var(--berry);
+    font-family: Georgia, serif;
+    font-size: 1.15rem;
+    font-style: italic;
+}
+
+.auth-card {
+    padding: clamp(24px, 4vw, 42px);
+    border-radius: 26px;
+    background: rgba(255, 255, 255, 0.92);
+}
+
+.auth-card h2 {
+    margin-top: 12px;
+    font-family: Georgia, serif;
+    font-size: 2rem;
+    font-weight: normal;
+}
+
+.auth-description {
+    margin-top: 8px;
+    font-size: 0.92rem;
+}
+
+#login-form,
+#signup-form {
+    margin-top: 28px;
+}
+
+.form-field {
+    margin-bottom: 20px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.88rem;
+    font-weight: bold;
+}
+
+.form-field input {
+    min-height: 48px;
+}
+
+.auth-submit {
+    width: 100%;
+    margin-top: 8px;
+    padding: 14px;
+}
+
+.auth-switch {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 0.88rem;
+}
+
+.auth-switch a {
+    font-weight: bold;
+}
+
+.auth-footnote {
+    margin-top: 30px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.78rem;
+}
+
+.form-message {
+    margin: 12px 0;
+    font-size: 0.88rem;
+}
+
+.form-message:empty {
+    display: none;
+}
+
+@media (max-width: 760px) {
+    .auth-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 36px 0;
+    }
+
+    .auth-intro h1 {
+        font-size: 3rem;
+    }
+
+    .auth-decoration {
+        margin-top: 24px;
+    }
+
+    .auth-card {
+        width: 100%;
+    }
+}
+/* =====================================
+   BLUSH — FORM MESSAGES
+   ===================================== */
+
+.form-message.show {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.form-message.error {
+    background: #ffe5ea;
+    color: #a3153f;
+    border: 1px solid #f5b5c4;
+}
+
+.form-message.success {
+    background: #eaf7ee;
+    color: #2b6b44;
+    border: 1px solid #b9e0c6;
+}
+/* =====================================
+   BLUSH — PROFILE PAGE
+   ===================================== */
+
+[hidden] {
+    display: none !important;
+}
+
+.profile-layout {
+    width: min(560px, 90%);
+    margin: 60px auto;
+}
+
+.profile-card {
+    text-align: center;
+    padding: clamp(28px, 5vw, 48px);
+    border-radius: 26px;
+}
+
+.profile-avatar {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 18px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--pink-soft);
+    color: var(--cherry);
+    font-family: Georgia, serif;
+    font-size: 2.6rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.profile-card h1 {
+    margin: 10px 0 20px;
+    font-family: Georgia, serif;
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    font-weight: normal;
+    overflow-wrap: anywhere;
+}
+
+.profile-details {
+    margin: 0 0 26px;
+    padding: 16px;
+    background: var(--pink-light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+}
+
+.profile-guest-text {
+    margin-bottom: 24px;
+}
+
+.profile-card .button {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.logout-button {
+    margin-top: 12px;
+    width: 100%;
+    background: transparent;
+    color: var(--cherry);
+    border: 1px solid var(--border);
+}
+/* =====================================
+   BLUSH — ABOUT PAGE
+   ===================================== */
+
+.about-layout {
+    width: min(1000px, 90%);
+    margin: 50px auto;
+}
+
+.about-hero {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 50px;
+}
+
+.about-hero h1 {
+    margin: 16px 0 20px;
+    font-family: Georgia, serif;
+    font-weight: normal;
+}
+
+.about-hero h1 span {
+    color: var(--cherry);
+    font-style: italic;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+.about-card {
+    text-align: center;
+}
+
+.about-icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    background: var(--pink-soft);
+    color: var(--cherry);
+    font-size: 1.5rem;
+}
+
+.about-card h2 {
+    margin-bottom: 8px;
+    font-family: Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: normal;
+}
+
+.about-promise {
+    padding: clamp(24px, 4vw, 40px);
+    margin-bottom: 50px;
+    background: var(--lavender);
+    border-radius: 26px;
+}
+
+.about-promise h2 {
+    margin: 10px 0 18px;
+    font-family: Georgia, serif;
+    font-weight: normal;
+}
+
+.about-promise ul {
+    display: grid;
+    gap: 10px;
+    padding-left: 20px;
+    color: var(--text);
+}
+
+.about-note {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(98, 74, 130, 0.2);
+    font-size: 0.85rem;
+}
+
+.about-cta {
+    text-align: center;
+}
+
+.about-cta h2 {
+    margin-bottom: 16px;
+    font-family: Georgia, serif;
+    font-weight: normal;
+}
+
+@media (max-width: 760px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* =====================================
+   BLUSH — IMAGES
+   ===================================== */
+
+.avatar {
+    overflow: hidden;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.sidebar-banner {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+}
+
+.about-image {
+    display: block;
+    width: 100%;
+    max-height: 380px;
+    object-fit: cover;
+    border-radius: 26px;
+    margin: 0 auto 50px;
+    box-shadow: var(--shadow);
+}
+/* =====================================
+   BLUSH — PRIVACY CONTROLS
+   ===================================== */
+
+.privacy-controls {
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+}
+
+.privacy-text {
+    margin: 8px 0 14px;
+    font-size: 0.85rem;
+}
+
+.danger-button {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    background: transparent;
+    color: #a3153f;
+    border: 1px solid #f5b5c4;
+}
+
+.danger-button:hover {
+    background: #ffe5ea;
+}

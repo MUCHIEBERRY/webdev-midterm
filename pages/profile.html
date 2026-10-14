@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your profile on Blush.">
+    <title>Profile — Blush</title>
+    <link rel="icon" type="image/jpeg" href="../assets/img/logo.jpg">
+    <link rel="stylesheet" href="../src/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="../index.html" class="brand">blush<span>♡</span></a>
+
+    <nav class="main-nav">
+        <a href="../index.html">home</a>
+        <a href="profile.html" class="active">profile</a>
+        <a href="about.html">about</a>
+    </nav>
+
+    <a href="login.html" class="login-link">log in ↗</a>
+</header>
+
+<main class="profile-layout">
+
+    <!-- Shown when someone is logged in -->
+    <section class="profile-card card" id="profile-card" hidden>
+        <div class="profile-avatar" id="profile-avatar">b</div>
+        <p class="eyebrow">your little corner</p>
+        <h1 id="profile-name">lovely</h1>
+
+        <div class="profile-details">
+            <p><strong>email</strong></p>
+            <p id="profile-email">you@example.com</p>
+        </div>
+
+        <a href="../index.html" class="button">back to the feed ♡</a>
+        <button type="button" id="logout-button" class="logout-button">log out</button>
+
+        <div class="privacy-controls">
+            <p class="eyebrow">privacy controls</p>
+            <p class="privacy-text">Everything is saved in this browser only. You're in charge of it.</p>
+
+            <p id="privacy-message" class="form-message" role="status"></p>
+
+            <button type="button" id="delete-posts-button" class="danger-button">delete my posts</button>
+            <button type="button" id="delete-account-button" class="danger-button">delete my account</button>
+        </div>
+    </section>
+
+    <!-- Shown when nobody is logged in -->
+    <section class="profile-card card" id="profile-guest" hidden>
+        <div class="profile-avatar">♡</div>
+        <p class="eyebrow">hold on, lovely</p>
+        <h1>you're not logged in yet.</h1>
+        <p class="profile-guest-text">Log in or make an account to see your profile.</p>
+
+        <a href="login.html" class="button">log in</a>
+        <p class="auth-switch">new here? <a href="signup.html">create an account</a></p>
+    </section>
+
+</main>
+
+<script src="../src/js/main.js"></script>
+</body>
+</html>
