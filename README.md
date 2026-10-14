@@ -35,3 +35,23 @@ Blush is a privacy-themed social media website I made for my web development mid
 3. Right-click `index.html` and choose **Open with Live Server**.
 
 ## Folder structure
+
+webdev-midterm
+├── assets
+├── pages
+│ ├── about.html
+│ ├── login.html
+│ ├── profile.html
+│ └── signup.html
+├── src
+│ ├── css
+│ │ └── style.css
+│ └── js
+│ └── main.js
+├── index.html
+└── README.md
+
+
+## Important note
+
+Blush is a **frontend-only school project**. Accounts and posts are stored in the browser's localStorage, which is not secure, and nothing is sent to a server. Please don't use a real password or personal information.
