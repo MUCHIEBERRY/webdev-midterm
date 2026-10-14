@@ -2,14 +2,14 @@
 
 **Your space. Your rules.**
 
-Blush is a privacy-themed social media website I made for my web development midterm. It's a pink, soft-looking feed where people can post their thoughts, like posts, and make a demo account.
+Blush is a privacy-themed social media prototype I made for my web development midterm. It's a soft pink feed where people can post their thoughts, like posts, make a demo account, and control their own data. It's built with only HTML, CSS, and vanilla JavaScript, with no backend, database, or API.
 
 ## Pages
 
-- `index.html`: the home feed where you can post and like
+- `index.html`: the main feed where you can post and like
 - `pages/login.html`: log in page
 - `pages/signup.html`: sign up page
-- `pages/profile.html`: shows the logged-in user's name and email
+- `pages/profile.html`: your profile, log out, and privacy controls
 - `pages/about.html`: about Blush and the privacy promise
 
 ## Features
@@ -19,8 +19,8 @@ Blush is a privacy-themed social media website I made for my web development mid
 - Demo sign up and log in
 - Password check using a salted SHA-256 hash (the real password is never saved)
 - Profile page and log out
-- Responsive design for phone, tablet, and desktop
 - Privacy controls: delete your own posts or your whole account from the profile page
+- Responsive design for phone, tablet, and desktop
 
 ## Built with
 
@@ -37,25 +37,30 @@ Blush is a privacy-themed social media website I made for my web development mid
 
 ## Folder structure
 
+```
 webdev-midterm
 ├── assets
+│   └── img
 ├── pages
-│ ├── about.html
-│ ├── login.html
-│ ├── profile.html
-│ └── signup.html
+│   ├── about.html
+│   ├── login.html
+│   ├── profile.html
+│   └── signup.html
 ├── src
-│ ├── css
-│ │ └── style.css
-│ └── js
-│ └── main.js
+│   ├── css
+│   │   └── style.css
+│   └── js
+│       └── main.js
 ├── index.html
 └── README.md
+```
 
+## How the privacy part works
 
-## Important note
-
-Blush is a **frontend-only school project**. Accounts and posts are stored in the browser's localStorage, which is not secure, and nothing is sent to a server. Please don't use a real password or personal information. 
+- No ads, no trackers, and no data is sent to a server.
+- Accounts and posts are stored only in your own browser (localStorage).
+- Only your name, email, and a salted hash of your password are stored.
+- You can delete your posts or your account anytime from the profile page.
 
 ## Notes on AI use
 
@@ -63,6 +68,6 @@ I used AI (Claude and ChatGPT) as a guide while building this project. It helped
 
 ## Limitations
 
-- Everything is saved in the browser's localStorage, so nothing is sent to a server and nothing is shared between devices.
+- Everything is saved in the browser's localStorage, so nothing is shared between devices or browsers.
 - The demo login only stores a salted SHA-256 hash of the password. A real app needs a backend with proper password hashing, so please don't use a real password.
 - The posts from other users in the feed are fake demo posts.
